@@ -676,7 +676,12 @@ function checkLinks(root, files) {
       const normalised = resolved.startsWith("..") ? null : resolved;
 
       if (normalised === null || !files.includes(normalised)) {
-        error(file, line, `relative link does not resolve: ${rawTarget}`);
+        // A link to a directory is legitimate: GitHub renders the folder listing. Accept it
+        // when the resolved path is a prefix of at least one tracked file.
+        const isDirectory = normalised !== null && files.some((f) => f.startsWith(`${normalised}/`));
+        if (!isDirectory) {
+          error(file, line, `relative link does not resolve: ${rawTarget}`);
+        }
         continue;
       }
 

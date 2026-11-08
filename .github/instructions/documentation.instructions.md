@@ -1,5 +1,5 @@
 ---
-applyTo: "docs/**/*.md,labs/**/*.md,reference/**.md,*.md"
+applyTo: "docs/**/*.md,labs/**/*.md,reference/**/*.md,*.md"
 description: "Documentation and editorial conventions for this repository."
 ---
 
