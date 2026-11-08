@@ -1,0 +1,46 @@
+# Copilot code review environment
+#
+# By default, Copilot code review reuses copilot-setup-steps.yml. This file overrides that
+# for reviews only, so review can run on a different runner, with a different toolchain, or
+# without the heavier setup the cloud agent needs.
+#
+# The shape mirrors copilot-setup-steps.yml and the job keeps the same name, because the
+# name is what the platform looks for. If this file is absent or the job is misnamed,
+# review falls back to copilot-setup-steps.yml rather than failing loudly — which is why a
+# silent misconfiguration here is easy to miss.
+
+name: "Copilot Code Review Setup"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-code-review.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-code-review.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # A review needs to read the customization set and run the validator. It does not need
+      # to build an application, which is why this is lighter than the cloud agent setup.
+      - name: Verify the customization contract
+        run: |
+          node --version
+          npm run check

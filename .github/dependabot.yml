@@ -1,0 +1,21 @@
+# Dependency updates.
+#
+# Included because it belongs to the same repository surface as the Copilot configuration,
+# even though Copilot does not read it. A stale secret-scanning or action dependency is an
+# agent guardrail that quietly stopped working.
+#
+# Keep GitHub Actions pinned and updated: copilot-setup-steps.yml runs third-party actions,
+# and those actions execute with the permissions you granted the setup job.
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(actions)"
+    labels:
+      - "dependencies"
+      - "ci"

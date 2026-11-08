@@ -1,0 +1,41 @@
+# Validates this repository's own Copilot customization set.
+#
+# This is ordinary CI. It exists because every file under .github/ is machine-read, and a
+# mistyped frontmatter key does not raise an error at runtime: the customization is simply
+# ignored. Ignored silently is the failure mode this workflow exists to prevent.
+#
+# Note for forks and for Copilot-authored pull requests: GitHub blocks workflows from
+# running automatically in a pull request created by Copilot until someone with write access
+# approves the run. That default is a guardrail, not a bug. An administrator can change it
+# per repository, and doing so removes a review gate from agent-produced code.
+
+name: validate-customizations
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate frontmatter, hook configuration and links
+        run: node scripts/validate-customizations.mjs
+
+      - name: Run the validator's own tests
+        run: node --test "scripts/test/**/*.test.mjs"

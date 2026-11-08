@@ -1,0 +1,75 @@
+# Copilot setup steps
+#
+# This file prepares the development environment that Copilot cloud agent and Copilot code
+# review run in, *when they run on GitHub Actions*. It does nothing for sessions that run in
+# a cloud sandbox.
+#
+# Contract, from the official documentation:
+#   * The path is fixed: .github/workflows/copilot-setup-steps.yml
+#   * The file must be on the default branch. On a feature branch it is inert, which is the
+#     single most common reason "my setup steps are ignored".
+#   * Exactly one job, and it must be named `copilot-setup-steps`. Any other job in this
+#     file is ignored.
+#   * Of everything a workflow job accepts, only these are honoured: `steps`,
+#     `permissions`, `runs-on`, `services`, `snapshot`, `timeout-minutes` (max 59).
+#     Everything else you write is silently dropped, so do not put security-critical
+#     configuration in an ignored key.
+#   * `fetch-depth` on actions/checkout is overridden, because the agent needs to roll back
+#     commits on request.
+#
+# Copilot gets its own token for its work. The `permissions` block below applies to *your*
+# setup steps only. Keep it minimal.
+
+name: "Copilot Setup Steps"
+
+# The triggers exist so you can validate the file itself: it runs as a normal workflow when
+# it changes, and can be started by hand from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The name is part of the contract. Renaming this job disables the file.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Needed only because the steps below check out the repository. If you drop the
+      # checkout, drop this too; Copilot clones on its own after your steps finish.
+      contents: read
+
+    # Hooks and setup commands block the agent. A hanging install is a hung session.
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Pin a major line rather than "latest". The agent's environment should be as
+          # boring and reproducible as the one your tests run in.
+          node-version: "22"
+
+      # This repository has no dependencies, so there is nothing to install. In a real
+      # repository this is where you would put your deterministic install:
+      #
+      #   - name: Install dependencies
+      #     run: npm ci
+      #
+      # Prefer a lockfile install over a resolving install. The agent should not be
+      # choosing dependency versions, and a floating install makes its failures
+      # irreproducible.
+
+      - name: Prove the toolchain works before the agent relies on it
+        # A setup step that silently produces a broken environment is worse than no setup
+        # step: the agent then spends its budget debugging the harness instead of the task.
+        run: |
+          node --version
+          npm run check
