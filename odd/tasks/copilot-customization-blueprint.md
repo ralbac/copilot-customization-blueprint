@@ -29,20 +29,22 @@ copy-paste-ready template plus a validated reference implementation.
 
 ## Tasks
 
-- [x] T1 Scaffold repository: git, license, gitignore, directory layout — `a25b1c7`
+- [x] T1 Scaffold repository: git, license, gitignore, directory layout — `277e826`
 - [x] T2 Template `.github/` instructions layer (`AGENTS.md`, `copilot-instructions.md`,
-  `REVIEW.md`, `.github/instructions/*`) — `b7ba94d`
-- [x] T3 Template `.github/` prompt files and custom agents — `8747770`
-- [x] T4 Template `.github/` skills, hooks, CODEOWNERS, templates — `f9aab85`
+  `REVIEW.md`, `.github/instructions/*`) — `277e826`
+- [x] T3 Template `.github/` prompt files and custom agents — `d9258e4`
+- [x] T4 Template `.github/` skills, hooks, CODEOWNERS, templates — `cae5408`
 - [x] T5 Template environment and CI (`copilot-setup-steps.yml`, `copilot-code-review.yml`,
-  validate workflow) — `f84a1ae`
-- [x] T6 Theory chapters 00-05 — `b12af62`
-- [x] T7 Theory chapters 06-12 — `e6d4f5f`
-- [x] T8 Practice labs and capstone — `dec18a1`
-- [x] T9 Reference: cheat sheet, frontmatter reference, sources — `c3d5eda`
-- [x] T10 README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT — `737e592`
-- [x] T11 Validator script plus tests, wired into CI — `master` (final)
-- [x] T12 Final verification: validator, tests, link check, and SPEC coverage — `master` (final)
+  validate workflow) — `f1ff39a`; fixture and `.vscode/mcp.json` — `b8232fb`
+- [x] T6 Theory chapters 00-02 — `4bd0861`
+- [x] T7 Theory chapters 03-12 and the theory index — `f081fbb`
+- [ ] T8 Practice labs and capstone — in progress
+- [x] T9 Reference: cheat sheet, frontmatter reference, sources — `4bd0861`
+- [x] T10 README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT — `4bd0861`; `llms.txt` and
+  `CHANGELOG.md` — `6b6a9e0`
+- [x] T11 Validator script plus tests, wired into CI — `8d1ab0c`; directory-link fix —
+  `30ad85a`
+- [ ] T12 Final verification: validator, tests, link check, and spec coverage
 
 Route: inline parent (single knowledge base already in context; delegating would require
 re-transmitting the research with more loss than gain). Commit convention: one work unit
@@ -60,26 +62,39 @@ per slice of roughly 400 authored lines, on `feature/copilot-customization-bluep
 > Cuando hayas recopilado toda la información estructurala en formato repositorio github
 > con su README, su parte teórica y su parte practica para publicarlo de forma didáctica.
 > Seguro que no es una idea original y hay muchos repositorios publicos ya así, pero quiero
-> tener el mio propio. Inspirate en los que veas que ya existen tambien.
+> tener el mio propio. Inspírate en los que veas que ya existen también.
 >
-> Si tienes alguna duda preguntame
+> Si tienes alguna duda pregúntame
 
 **L2** — User answered the scoping questionnaire: repository language **English**; practical
 depth **full course plus usable example repository**; evidence standard **official docs as
 source of truth**.
 
 **L3** — Reference repositories surveyed for structure and editorial approach:
-`github/awesome-copilot` (flat resource-type directories, `llms.txt`, Learning Hub,
-plugins) and `microsoft/wil` (`.github/skills/README.md` documenting the skill layout).
-Neither is copied; the shape here is a course plus a template, not a catalogue.
+`github/awesome-copilot` (flat resource-type directories, `llms.txt`, Learning Hub, plugins)
+and `microsoft/wil` (`.github/skills/README.md` documenting the skill layout in-tree). Neither
+is copied; the shape here is a course plus a template, not a catalogue.
 
-**L4** — Verified facts pinned during research (official docs, retrieved in this session):
-`.github/copilot-instructions.md`, `.github/instructions/**/*.instructions.md` (`applyTo`),
-`AGENTS.md`/`CLAUDE.md`/`GEMINI.md`/`REVIEW.md`, `.github/prompts/*.prompt.md`,
-`.github/agents/NAME.agent.md`, `.github/skills/<name>/SKILL.md`, `.github/hooks/*.json`,
+**L4** — Verified facts pinned during research, from official documentation retrieved in this
+session: `.github/copilot-instructions.md`; `.github/instructions/**/*.instructions.md` with
+`applyTo`; `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `REVIEW.md`;
+`.github/prompts/*.prompt.md`; `.github/agents/NAME.agent.md`;
+`.github/skills/<name>/SKILL.md`; `.github/hooks/*.json`;
 `.github/workflows/copilot-setup-steps.yml` (only `steps`, `permissions`, `runs-on`,
-`services`, `snapshot`, `timeout-minutes` ≤ 59 are honoured; default branch only),
-`copilot-code-review.yml`, repository-level MCP config entered in the repository settings UI
-(not a committed file), `.vscode/mcp.json` for VS Code, `COPILOT_MCP_` secret prefix,
-`gh skill` CLI, rulesets/CODEOWNERS/content-exclusion/firewall as the actual enforcement
-layer.
+`services`, `snapshot`, `timeout-minutes` ≤ 59 are honoured, default branch only);
+`copilot-code-review.yml`; repository-level MCP configuration entered in the repository
+settings UI rather than committed; `.vscode/mcp.json` for VS Code; the `COPILOT_MCP_` secret
+prefix; the `gh skill` CLI; and rulesets, CODEOWNERS, content exclusion and the firewall as
+the only layer that actually enforces anything.
+
+**L5** — Execution note: the theory and practice tracks were written by two background workers
+with disjoint edit surfaces (`docs/03-12` plus the index; `labs/`), while the parent owned the
+factual backbone (`reference/frontmatter-reference.md`, `reference/sources.md`), chapters
+00-02, the README and the governance files. Both workers received `reference/` as the only
+permitted factual basis, so no chapter could invent a property or a file location.
+
+**L6** — Two validator rules were mis-calibrated on first run and corrected: relative links
+inside fenced code blocks were being treated as real links, and a link to an existing
+directory was reported as unresolved whether or not it carried a trailing slash. Both now
+have tests. A third rule was relaxed deliberately: an `applyTo` literal path is a warning
+only when it names no existing file.
