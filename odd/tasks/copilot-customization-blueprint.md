@@ -38,13 +38,15 @@ copy-paste-ready template plus a validated reference implementation.
   validate workflow) — `f1ff39a`; fixture and `.vscode/mcp.json` — `b8232fb`
 - [x] T6 Theory chapters 00-02 — `4bd0861`
 - [x] T7 Theory chapters 03-12 and the theory index — `f081fbb`
-- [ ] T8 Practice labs and capstone — in progress
+- [x] T8 Practice labs and capstone — `eba9877`; fixture gap-list correction —
+  `aa1453a`
 - [x] T9 Reference: cheat sheet, frontmatter reference, sources — `4bd0861`
 - [x] T10 README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT — `4bd0861`; `llms.txt` and
   `CHANGELOG.md` — `6b6a9e0`
 - [x] T11 Validator script plus tests, wired into CI — `8d1ab0c`; directory-link fix —
   `30ad85a`
-- [ ] T12 Final verification: validator, tests, link check, and spec coverage
+- [x] T12 Final verification: validator 0 errors, 38/38 tests, no unresolved links,
+  every S# covered, published to `ralbac/copilot-customization-blueprint`
 
 Route: inline parent (single knowledge base already in context; delegating would require
 re-transmitting the research with more loss than gain). Commit convention: one work unit
