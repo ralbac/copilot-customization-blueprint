@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Official Copilot customization documentation
+    url: https://docs.github.com/en/copilot/reference/customization-cheat-sheet
+    about: The source of truth for everything in this repository. Check here first.
+  - name: Awesome GitHub Copilot
+    url: https://github.com/github/awesome-copilot
+    about: Community-maintained agents, instructions, skills and plugins worth reading.

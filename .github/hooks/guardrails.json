@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/audit-session.sh start",
+        "powershell": "./.github/hooks/scripts/audit-session.ps1 start",
+        "cwd": ".",
+        "env": {
+          "AUDIT_LOG": ".copilot-audit/session.log"
+        },
+        "timeoutSec": 5
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/deny-dangerous-command.sh",
+        "powershell": "./.github/hooks/scripts/deny-dangerous-command.ps1",
+        "cwd": ".",
+        "timeoutSec": 5
+      },
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/protect-secret-files.sh",
+        "powershell": "./.github/hooks/scripts/protect-secret-files.ps1",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/audit-session.sh end",
+        "powershell": "./.github/hooks/scripts/audit-session.ps1 end",
+        "cwd": ".",
+        "env": {
+          "AUDIT_LOG": ".copilot-audit/session.log"
+        },
+        "timeoutSec": 5
+      }
+    ]
+  }
+}

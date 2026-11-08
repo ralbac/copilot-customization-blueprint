@@ -1,0 +1,45 @@
+name: Suggest content
+description: Propose a chapter, a lab, a reference entry, or a customization pattern.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: gap
+    attributes:
+      label: What is missing
+      description: |
+        Describe the reader who cannot do something today. "A reader who has custom agents
+        but no MCP server cannot connect to an internal API" is actionable. "MCP needs more
+        coverage" is not.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - Theory (`docs/`)
+        - Practice (`labs/`)
+        - Reference (`reference/`)
+        - Template (`.github/`)
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Official source
+      description: |
+        Link the documentation that establishes the behaviour. This repository treats
+        official docs as the source of truth, so a proposal without a source becomes a
+        research task rather than a content task.
+    validations:
+      required: false
+
+  - type: textarea
+    id: shape
+    attributes:
+      label: Proposed shape
+      description: Headings, the worked example, and the observable check a lab would use.
+    validations:
+      required: false

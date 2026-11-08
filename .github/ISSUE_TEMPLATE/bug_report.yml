@@ -1,0 +1,59 @@
+name: Bug in the blueprint
+description: Something in this repository is wrong, broken, or contradicts the official documentation.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository documents GitHub Copilot behaviour. If a claim here contradicts
+        the official documentation, that is a bug and it is the most valuable report you
+        can file.
+
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: Path and heading, for example `docs/03-custom-agents.md` under "Tool aliases".
+      placeholder: path/to/file.md — heading
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the repository says
+      description: Quote the sentence. Do not paraphrase it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happens
+      description: |
+        Include the Copilot surface and version (VS Code, Visual Studio, JetBrains, CLI,
+        github.com), and link the official page that states the correct behaviour.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of problem
+      options:
+        - Wrong statement about Copilot behaviour
+        - Missing file location or frontmatter property
+        - Broken relative link
+        - Example that fails when copied
+        - Validator false positive or false negative
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: labels
+    attributes:
+      label: Availability check
+      description: If the behaviour you are reporting is preview or IDE-specific, say so in the description above.
+      options:
+        - label: I checked whether this behaviour is generally available or preview
