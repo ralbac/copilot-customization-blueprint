@@ -1,0 +1,24 @@
+{
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${input:github-token}"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--headless", "--allowed-origins", "http://localhost:*"]
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "github-token",
+      "description": "Fine-grained PAT with read access to this repository. Never commit it.",
+      "password": true
+    }
+  ]
+}
