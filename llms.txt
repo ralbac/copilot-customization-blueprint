@@ -1,0 +1,72 @@
+# llms.txt — machine-readable index
+#
+# A convention borrowed from github/awesome-copilot: a plain-text map that an AI agent can
+# read to find what it needs without crawling the repository. Kept as a flat list so it stays
+# parseable and so a diff of it is reviewable.
+#
+# Format: <path> — <what it is> — <when to read it>
+
+# --- Repository meta -------------------------------------------------------------------
+
+README.md — overview, quick start, contents table — start here
+AGENTS.md — tool-neutral project instructions loaded by Copilot and other agents — always
+REVIEW.md — code review instructions for this repository — when reviewing a change
+CONTRIBUTING.md — contribution rules and the validator-rule process — before proposing a change
+SECURITY.md — security surface and private reporting — when reporting a vulnerability
+LICENSE — MIT
+
+# --- Theory track ----------------------------------------------------------------------
+
+docs/README.md — theory index, four parts, reading order — to navigate the track
+docs/00-mental-model.md — the three mechanisms, context budget, surface map — always first
+docs/01-custom-instructions.md — repository-wide instructions, scope, precedence, writing rules — when writing copilot-instructions.md
+docs/02-path-scoped-instructions.md — applyTo glob semantics and overlap — when scoping instructions by path
+docs/03-prompt-files.md — prompt files, frontmatter, variables, IDE-only status — when writing .prompt.md
+docs/04-custom-agents.md — .agent.md, tool aliases, least privilege, levels, deduplication — when writing an agent
+docs/05-skills.md — SKILL.md, progressive loading, allowed-tools, context fork, portability — when writing a skill
+docs/06-hooks.md — hook events, JSON config, and the fail-closed/fail-open decision contract — when writing a hook
+docs/07-mcp.md — MCP configuration paths, secret prefix, tool selection — when connecting external tools
+docs/08-agent-environment.md — copilot-setup-steps.yml, honoured keys, runners, review override — when the agent needs dependencies
+docs/09-policies-and-guardrails.md — what actually enforces vs what merely suggests — when designing governance
+docs/10-composition-patterns.md — decision table and end-to-end recipes — when adopting for a team
+docs/11-verification.md — discovery vs effectiveness, per-mechanism verification — when something does not work
+docs/12-portability.md — Agent Skills standard, AGENTS.md, what does not port — when sharing across agents
+
+# --- Practice track --------------------------------------------------------------------
+
+labs/README.md — practice index, prerequisites, start-here path — to navigate the track
+labs/01-first-instruction.md — write a repository-wide instruction and prove it lands
+labs/02-path-scoped-instructions.md — prove a glob matches one file and not another
+labs/03-prompt-file.md — run the security review prompt against a real defect
+labs/04-first-agent.md — confirm a tool grant is a capability boundary
+labs/05-first-skill.md — prove a skill is discovered, then prove it is effective
+labs/06-hooks.md — exercise the hook decision contract without any Copilot surface
+labs/07-mcp.md — inspect and verify MCP configuration
+labs/08-agent-environment.md — audit copilot-setup-steps.yml against the honoured-keys rule
+labs/09-guardrails.md — classify each control as instruction, capability or enforcement
+labs/10-capstone.md — build a complete customization set with a self-review checklist
+
+# --- Reference -------------------------------------------------------------------------
+
+reference/cheat-sheet.md — one-page comparison of every feature, surface and mechanism
+reference/frontmatter-reference.md — every property, type, requirement, limit and silent failure
+reference/sources.md — official documentation index, the authority for every claim
+
+# --- The live template -----------------------------------------------------------------
+
+.github/copilot-instructions.md — repository-wide instructions, the always-on layer
+.github/instructions/ — path-scoped instructions: typescript, tests, documentation, copilot config
+.github/prompts/ — review-api-security, write-adr, triage-issue
+.github/agents/ — code-reviewer (read-only), docs-writer, test-specialist, planner
+.github/skills/ — changelog-entry, dependency-audit, code-review
+.github/skills/code-review/SKILL.md — forked-context review skill; name chosen so code review loads it
+.github/hooks/guardrails.json — sessionStart, preToolUse x2, sessionEnd
+.github/hooks/scripts/ — bash and PowerShell guardrails with the exit-code contract documented
+.github/CODEOWNERS — makes the customization surface review-critical
+.github/workflows/copilot-setup-steps.yml — agent environment, honoured keys documented inline
+.github/workflows/copilot-code-review.yml — review-only environment override
+.github/workflows/validate-customizations.yml — CI for the frontmatter contract
+.vscode/mcp.json — editor MCP servers, token prompted not stored
+examples/shop-api/ — fixed fixture with one intentional authorization defect
+scripts/validate-customizations.mjs — dependency-free contract validator
+scripts/test/ — 36 tests, including proof the validator writes nothing
