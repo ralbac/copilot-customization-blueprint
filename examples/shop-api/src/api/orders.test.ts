@@ -5,14 +5,22 @@
  * so do not fill them in here: the missing cases are the exercise.
  *
  * Present:
- *   - createOrder rejects an invalid payload
- *   - createOrder lets a customer create their own order
+ *   - createOrder rejects a payload with no lines
+ *   - createOrder creates an order for the calling customer
+ *   - getOrder returns an order to its owner
+ *   - getOrder returns 404 for an unknown id
+ *   - updateStatus rejects a non-staff caller
  *
  * Missing, on purpose (the labs add these):
  *   - createOrder rejects a non-staff caller creating an order for someone else
- *   - getOrder rejects a caller reading another customer's order
- *   - updateStatus rejects a caller who is not staff
+ *   - getOrder rejects a caller reading another customer's order. This is the deliberate
+ *     authorization defect in `getOrder`, and the absence of this test is the point: the
+ *     suite is green while the defect is live, which is exactly what lab 03 investigates.
+ *   - updateStatus rejects an invalid status value
  *   - a rejected status update leaves the stored order unchanged
+ *
+ * Keep this list accurate. A gap list nobody trusts is worse than no list, because a reader
+ * then has to re-derive the gaps from the file instead of reading them.
  */
 
 import { describe, it } from "node:test";
@@ -23,8 +31,6 @@ import * as orders from "../repositories/orders.js";
 import type { Caller } from "../models.js";
 
 const customer: Caller = { userId: "u-1", isStaff: false };
-const otherCustomer: Caller = { userId: "u-2", isStaff: false };
-const staff: Caller = { userId: "u-9", isStaff: true };
 
 const validBody = {
   customerId: "u-1",
@@ -79,7 +85,3 @@ describe("updateStatus", () => {
     assert.deepEqual(response.body, { error: "staff only" });
   });
 });
-
-// Referenced above so the unused-import warning does not fire during a reader's experiment.
-void otherCustomer;
-void staff;
