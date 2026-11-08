@@ -29,9 +29,9 @@ examples/shop-api/
 
 | Lab | Uses this fixture to |
 | --- | --- |
-| [01](../labs/01-first-instruction.md) | confirm that a repository-wide instruction reaches Copilot |
-| [02](../labs/02-path-scoped-instructions.md) | show `applyTo` matching `src/**/*.ts` but not `README.md` |
-| [03](../labs/03-prompt-file.md) | give the security review prompt a real defect to find |
-| [04](../labs/04-first-agent.md) | give the read-only reviewer something to report |
-| [05](../labs/05-first-skill.md) | show a skill that must inspect several files |
-| [06](../labs/06-hooks.md) | show a hook denying an edit to a protected path |
+| [01](../../labs/01-first-instruction.md) | confirm that a repository-wide instruction reaches Copilot |
+| [02](../../labs/02-path-scoped-instructions.md) | show `applyTo` matching `src/**/*.ts` but not `README.md` |
+| [03](../../labs/03-prompt-file.md) | give the security review prompt a real defect to find |
+| [04](../../labs/04-first-agent.md) | give the read-only reviewer something to report |
+| [05](../../labs/05-first-skill.md) | show a skill that must inspect several files |
+| [06](../../labs/06-hooks.md) | show a hook denying an edit to a protected path |
