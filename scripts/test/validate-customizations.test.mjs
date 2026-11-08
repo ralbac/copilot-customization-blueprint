@@ -446,6 +446,31 @@ describe("validator: hooks", () => {
 });
 
 describe("validator: markdown", () => {
+  test("a link to an existing directory resolves, with or without a trailing slash", () => {
+    const root = fixture({
+      "docs/one.md": "# One\n\nSee [a](../.github/instructions) and [b](../.github/instructions/).\n",
+      ".github/instructions/ts.instructions.md": `---
+applyTo: "**/*.ts"
+---
+
+Rules.
+`,
+    });
+
+    const { code, stdout } = run(root);
+    assert.equal(code, 0, `a directory link must resolve\n${stdout}`);
+  });
+
+  test("a link to a directory that does not exist fails", () => {
+    const root = fixture({
+      "docs/one.md": "# One\n\nSee [gone](../missing/).\n",
+    });
+
+    const { code, stdout } = run(root);
+    assert.equal(code, 1);
+    assert.match(stdout, /relative link does not resolve: \.\.\/missing\//);
+  });
+
   test("a broken relative link fails", () => {
     const root = fixture({
       "docs/one.md": "# One\n\nSee [gone](./two.md).\n",

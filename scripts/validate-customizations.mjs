@@ -672,8 +672,11 @@ function checkLinks(root, files) {
         continue;
       }
 
-      const resolved = posix.normalize(posix.join(fromDir === "." ? "" : fromDir, target)).replace(/^\.\//, "");
-      const normalised = resolved.startsWith("..") ? null : resolved;
+      const resolved = posix
+        .normalize(posix.join(fromDir === "." ? "" : fromDir, target))
+        .replace(/^\.\//, "")
+        .replace(/\/+$/, "");
+      const normalised = resolved.startsWith("..") || resolved === "" ? null : resolved;
 
       if (normalised === null || !files.includes(normalised)) {
         // A link to a directory is legitimate: GitHub renders the folder listing. Accept it
