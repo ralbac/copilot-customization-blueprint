@@ -1,0 +1,17 @@
+# Dependency and build noise
+node_modules/
+dist/
+build/
+coverage/
+*.log
+
+# Local Copilot state
+.copilot-audit/
+.copilot/
+*.local.json
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.idea/
+*.swp

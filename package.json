@@ -1,0 +1,16 @@
+{
+  "name": "copilot-customization-blueprint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A didactic, validated blueprint for customizing GitHub Copilot through the .github directory.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-customizations.mjs",
+    "test": "node --test scripts/test/",
+    "check": "npm run validate && npm test"
+  },
+  "license": "MIT"
+}
