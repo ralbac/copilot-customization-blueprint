@@ -136,7 +136,7 @@ repository that teaches a configuration contract should not need a toolchain to 
 contract.
 
 ```bash
-git clone https://github.com/your-org/copilot-customization-blueprint.git
+git clone https://github.com/ralbac/copilot-customization-blueprint.git
 cd copilot-customization-blueprint
 npm run check
 ```

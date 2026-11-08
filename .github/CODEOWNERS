@@ -2,41 +2,49 @@
 #
 # Two jobs, in this order of importance.
 #
-# 1. Make the customization files review-critical. Copilot reads these files and then acts
-#    on what they say, so an unreviewed edit here is an unreviewed change to agent
-#    behaviour. Pair this file with the "Require review from Code Owners" branch rule,
-#    otherwise it is documentation rather than enforcement.
+# 1. Make the customization files review-critical. Copilot reads these files and then acts on
+#    what they say, so an unreviewed edit here is an unreviewed change to agent behaviour.
+#    Pair this file with the "Require review from Code Owners" branch rule, otherwise it is
+#    documentation rather than enforcement. Chapter 09 of the docs makes that point and this
+#    file would be a poor example of it.
 #
 # 2. Route the areas that need domain review to the people who know them.
+#
+# This repository is also a template. If you copy `.github/` into your own repository, replace
+# every `@ralbac` below with the team that owns that area for you. The comments say which
+# concern each pattern protects, so you can map each one to the right owner rather than
+# handing the whole surface to one group.
 #
 # Syntax: <pattern> <owner> [<owner> ...]
 # Later patterns win, so the most specific rule goes last.
 
 # Default owner for everything not matched below.
-*                                   @your-org/maintainers
+*                                   @ralbac
 
 # The customization surface. Every file Copilot reads or executes lives here.
-/.github/copilot-instructions.md    @your-org/ai-governance
-/AGENTS.md                          @your-org/ai-governance
-/REVIEW.md                          @your-org/ai-governance
-/.github/instructions/              @your-org/ai-governance
-/.github/agents/                    @your-org/ai-governance
-/.github/prompts/                   @your-org/ai-governance
-/.github/skills/                    @your-org/ai-governance
+/.github/copilot-instructions.md    @ralbac
+/AGENTS.md                          @ralbac
+/REVIEW.md                          @ralbac
+/.github/instructions/              @ralbac
+/.github/agents/                    @ralbac
+/.github/prompts/                   @ralbac
+/.github/skills/                    @ralbac
+/llms.txt                           @ralbac
 
 # Hooks execute shell commands without asking the model for permission. Treat them as
-# privileged code: they are the one customization that can act on its own.
-/.github/hooks/                     @your-org/ai-governance @your-org/security
+# privileged code: they are the one customization that can act on its own. In an organization
+# this is the pattern that should carry a security team as a second owner.
+/.github/hooks/                     @ralbac
 
 # Environment and policy. These change what the agent can reach and what CI will run.
-/.github/workflows/copilot-setup-steps.yml  @your-org/ai-governance @your-org/platform
-/.github/workflows/copilot-code-review.yml  @your-org/ai-governance @your-org/platform
-/.github/workflows/                         @your-org/platform
-/.vscode/mcp.json                   @your-org/ai-governance @your-org/security
+/.github/workflows/copilot-setup-steps.yml  @ralbac
+/.github/workflows/copilot-code-review.yml  @ralbac
+/.github/workflows/                         @ralbac
+/.vscode/mcp.json                   @ralbac
 
 # The fixture the labs operate on. Changing it invalidates the labs, so it is reviewed by
 # whoever owns the curriculum rather than by whoever owns the code.
-/examples/                          @your-org/docs
+/examples/                          @ralbac
 
 # Validator and its tests move together.
-/scripts/                           @your-org/ai-governance @your-org/platform
+/scripts/                           @ralbac

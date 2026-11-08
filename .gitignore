@@ -10,6 +10,9 @@ coverage/
 .copilot/
 *.local.json
 
+# Tool caches
+.atl/
+
 # Editor / OS noise
 .DS_Store
 Thumbs.db
